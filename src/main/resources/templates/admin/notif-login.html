@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <title>Failed</title>
+  <style>
+    body {
+      background-color: #121212;
+      overflow: hidden;
+    }
+
+    .text {
+      color: #ddd;    
+      text-align: center;
+      font-family: "Lucida Console", Monaco, monospace;
+      color: #ddd;
+      text-align: center;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 0 #888 , 4px 4px 0 #444 , 6px 6px 0 #222 ;
+    }
+
+    .status {
+      padding: 20px;
+      font-size: 14vmin;
+    }
+
+    .message {
+      font-size: 4vmin;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .servers {
+      display: block;
+      width: 50%;
+      height: 50%;
+      padding-left: 6vmin;
+    }
+
+    .explode {
+      display: none;
+      position: absolute;
+      width: 20%;
+    }
+
+    .servers {
+      animation: shake 0.25s; 
+      animation-iteration-count: infinite; 
+    }
+  </style>
+</head>
+<body>
+<div class="status text"></div>
+<div class="message text">Please Login</div>
+<div class="message text"><a th:href="@{/login-admin}"><button class="btn btn-outline-success">Go To Login</button></a></div>
+<div class="container">
+  <img class="servers" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Server-multiple.svg"/>
+  <img class="explode" src="https://upload.wikimedia.org/wikipedia/commons/5/52/Explosion-153710_icon.svg"/>
+  <img class="explode" src="https://upload.wikimedia.org/wikipedia/commons/5/52/Explosion-153710_icon.svg"/>
+  <img class="explode" src="https://upload.wikimedia.org/wikipedia/commons/5/52/Explosion-153710_icon.svg"/>
+  <img class="explode" src="https://upload.wikimedia.org/wikipedia/commons/5/52/Explosion-153710_icon.svg"/>
+  <img class="explode" src="https://upload.wikimedia.org/wikipedia/commons/5/52/Explosion-153710_icon.svg"/>
+  <img class="explode" src="https://upload.wikimedia.org/wikipedia/commons/5/52/Explosion-153710_icon.svg"/>
+</div>
+</body>
+</html>

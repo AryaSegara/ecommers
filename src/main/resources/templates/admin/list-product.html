@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/dashboard2.css" />
+
+    <style>
+        /* Google font */
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            border: none;
+            outline: none;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+
+        }
+
+        body {
+            display: flex;
+        }
+
+        #sidebar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 115px;
+            height: 100vh;
+            padding: 0 1.7rem;
+            color: #fff;
+            overflow: hidden;
+            transition: all 0.5s linear;
+            background: rgba(32, 60, 183, 255);
+        }
+
+        #sidebar:hover {
+            width: 250px;
+            transition: 0.5s;
+        }
+
+        #logo {
+            height: 80px;
+            padding: 16px;
+
+        }
+
+        #menu {
+            height: 88%;
+            position: relative;
+            list-style: none;
+            padding: 0;
+        }
+
+        #menu li {
+            padding: 1rem;
+            margin: 8px 0;
+            border-radius: 8px;
+            transition: all 0.5s ease-in-out;
+        }
+
+        #menu li:hover,
+        #active {
+            background: #e0e0e058;
+        }
+
+        #menu a {
+            color: #fff;
+            font-size: 14px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        #menu a span {
+            overflow: hidden;
+        }
+
+        #menu a i {
+            font-size: 1.2rem;
+        }
+
+        #logout {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        /* Body */
+        #main--content {
+            position: relative;
+            background: #ebe9e9;
+            width: 100%;
+            padding: 1rem;
+        }
+
+        #header--wrapper img {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        #header--wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            background: #fff;
+            border-radius: 10px;
+            padding: 10px 2rem;
+            margin-bottom: 1rem;
+        }
+
+        #header--title {
+            color: rgba(32, 60, 183, 255);
+
+        }
+
+        #user--info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        #search--box {
+            background: rgb(237, 237, 237);
+            border-radius: 15px;
+            color: rgba(32, 60, 183, 255);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 12px;
+        }
+
+        #search--box input {
+            background: transparent;
+            padding: 10px;
+        }
+
+        #search--box i {
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.5s ease-out;
+        }
+
+        #search--box i:hover {
+            transform: scale(1.2);
+        }
+
+        /* Card */
+        .card-container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+        }
+
+        .card--wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+
+        .main--title {
+            color: rgba(30, 60, 183, 255);
+            padding-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .payment--card {
+            background: rgb(221, 223, 240);
+            border-radius: 10px;
+            padding: 1.2rem;
+            width: 400px;
+            height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .payment--card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card--header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .amount {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: 200;
+        }
+
+        .amount--value {
+            font-size: 24px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 600;
+        }
+
+        .card-detail {
+            font-size: 18px;
+            color: #777777;
+            letter-spacing: 2px;
+            font-family: 'Courier New', Courier, monospace;
+
+        }
+
+        /* color */
+        .light-red {
+            background: rgb(255, 255, 255);
+        }
+
+        .light-purple {
+            background: rgb(252, 252, 252);
+        }
+
+        .light-blue {
+            background: rgb(39, 147, 206);
+        }
+
+        .dark-red {
+            background: red;
+        }
+
+        .dark-purple {
+            background: purple;
+        }
+
+        .dark-green {
+            background: green;
+        }
+
+        .dark-blue {
+            background: blue;
+        }
+
+        .fa-solid {
+            border: solid 1px transparent;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 2px;
+        }
+
+        .fa-pen-to-square {
+            color: orange;
+        }
+
+        .fa-trash {
+            color: red;
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        #hai {
+            font-weight: 600;
+        }
+
+        #hai4 {
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        #table {
+            width: 80vw;
+            height: 90vh;
+            background-color: #fff5;
+            backdrop-filter: blur(7px);
+            box-shadow: 0.4rem .8rem #0005;
+            border-radius: .8rem;
+            overflow: hidden;
+        }
+
+        #table--header {
+            width: 100%;
+            height: 10%;
+            background-color: #fff4;
+            padding: .8rem 1rem;
+
+        }
+
+        #table--body {
+            width: 95%;
+            max-height: calc(89% - 1.6rem);
+            background-color: #fffb;
+            margin: 1.6rem auto;
+            border-radius: .6rem;
+            overflow: auto;
+        }
+
+        #table--body::-webkit-scrollbar {
+            width: 0.5rem;
+            height: 0.5rem;
+        }
+
+        #table--body::-webkit-scrollbar-thumb {
+
+            border-radius: .5rem;
+            background-color: rgb(255, 255, 255);
+            visibility: hidden;
+        }
+
+        #table--body:hover:-webkit-scrollbar-thumb {
+            visibility: visible;
+        }
+
+        .tabel {
+            width: 100%;
+        }
+
+        td img {
+            width: 66px;
+            height: 66px;
+            margin-right: .5rem;
+            border-radius: 30%;
+            vertical-align: middle;
+        }
+
+        #tabel,
+        .jdl,
+        .tdnya {
+            border-collapse: collapse;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .tabel-utama .jdl {
+            position: sticky;
+            top: 0;
+            left: 0;
+            background-color: #d5d1defe;
+        }
+
+        .tabody tr:nth-child(even) {
+            background-color: #0000000b;
+        }
+
+        .tabody tr:hover {
+            background-color: #bbb8c173;
+        }
+
+        #status {
+            padding: .4rem 0;
+            border-radius: 2rem;
+            text-align: center;
+        }
+
+        #status#del {
+            background-color: aquamarine;
+            color: green;
+        }
+
+        @media (max-width: 1000px) {
+            td:not(:first-of-type) {
+                min-width: 12.1rem;
+            }
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+
+    <div id="sidebar">
+        <ul id="menu">
+            <li id="nav-item">
+                <a th:href="@{/login-admin}" id="nav-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li id="nav-item">
+                <a th:href="@{/list-product}" id="nav-item">
+                    <i class="fas fa-box"></i>
+                    <span>Product</span>
+                </a>
+            </li>
+            <li id="nav-item">
+                <a th:href="@{/list-category}" id="nav-item">
+                    <i class="fas fa-th-large"></i>
+                    <span>Category</span>
+                </a>
+            </li>
+            <li id="nav-item">
+                <a th:href="@{/list-orders}" id="nav-item">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>Orders</span>
+                </a>
+            </li>
+            <li id="nav-item">
+                <a th:href="@{/list-customer}" id="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Customer</span>
+                </a>
+            </li>
+
+            <li id="logout nav-item">
+                <a th:href="@{/keluar-admin}" id="nav-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="main--content">
+        <div id="header--wrapper">
+            <div id="header--title">
+                <!-- <img src="logo.png" alt=""> -->
+                <h2 id="hai">List Product</h2>
+            </div>
+        </div>
+
+        <p class="d-inline-flex gap-1">
+            <a class="btn btn-primary" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                aria-controls="collapseExample" th:href="@{/add-product}">
+                Add Product
+            </a>
+
+        </p>
+        <a class="btn btn-primary" th:href="@{/sorted-harga(sortOrder='asc')}">Sort Asc By Harga</a> |
+        <a class="btn btn-primary" th:href="@{/sorted-harga(sortOrder='desc')}">Sort Desc By Harga</a>
+
+        <!-- tabel -->
+        <main id="table" class="utama">
+            <section id="table--header">
+                <h4 id="hai4">Product Data</h4>
+            </section>
+            <section id="table--body">
+                <table class="tabel">
+                    <thead class="tabel-utama">
+                        <tr class="teer">
+                            <th scope="col" class="jdl">No</th>
+                            <th scope="col" class="jdl">Name</th>
+                            <th scope="col" class="jdl">Image</th>
+                            <th scope="col" class="jdl">Category</th>
+                            <th scope="col" class="jdl">Harga</th>
+                            <th scope="col" class="jdl">Stok</th>
+                            <th scope="col" class="jdl">Description</th>
+                            <th scope="col" class="jdl">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tabody">
+                        <tr th:each="d,i : ${barang}" class="teer">
+                            <td th:text="${i.index + 1}" class="tdnya"></td>
+                            <td th:text="${d.name}" class="tdnya"></td>
+                            <td>
+                                <img th:src="${d.image}" alt="gambar gagal dimuat">
+                            </td>
+                            <td th:text="${d.category.name}" class="tdnya"></td>
+                            <td th:text="${d.harga}" class="tdnya hargaBarang"></td>
+                            <td th:text="${d.stok}" class="tdnya"></td>
+                            <td th:text="${d.description}" class="tdnya"></td>
+                            <td class="tdnya">
+                                <a th:href="@{/update-product/{id}(id=${d.id})}"><i
+                                        class="fa-solid fa-pen-to-square"></i></a>
+                                <a th:href="@{/delete-product/{id}(id=${d.id})}"><i class="fa-solid fa-trash"></i></a>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </section>
+        </main>
+
+        <script>
+            document.querySelectorAll('.hargaBarang').forEach(function (el) {
+                const number = parseFloat(el.innerText); // Ambil nilai harga (gunakan parseFloat untuk mendukung desimal)
+                el.innerText = new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR'
+                }).format(number).replace('IDR', '').trim();
+            });
+        </script>
+
+
+</body>
+
+</html>

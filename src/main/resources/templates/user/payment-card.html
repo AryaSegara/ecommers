@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title></title>
+        <style>
+            body {
+                background-color: #2758b1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                font-family: Arial, sans-serif;
+            }
+            .payment-container {
+                background-color: #FFFFFF;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                width: 300px;
+            }
+            .payment-container h2 {
+                text-align: center;
+                color: #555555;
+                margin-bottom: 20px;
+            }
+            .payment-container label {
+                display: block;
+                color: #555555;
+                margin-bottom: 5px;
+                font-size: 14px;
+            }
+            .payment-container input[type="text"],
+            .payment-container input[type="number"] {
+                width: calc(100% - 20px);
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #CCCCCC;
+                border-radius: 5px;
+                font-size: 14px;
+            }
+            .payment-container .row {
+                display: flex;
+                justify-content: space-between;
+            }
+            .payment-container .row input {
+                width: calc(50% - 10px);
+            }
+            .payment-container .row a {
+                align-self: center;
+                font-size: 12px;
+                color: #007BFF;
+                text-decoration: none;
+            }
+            .payment-container .row a:hover {
+                text-decoration: underline;
+            }
+            .payment-container .total-amount {
+                background-color: #F0F0F0;
+                padding: 10px;
+                border-radius: 5px;
+                text-align: right;
+                font-size: 14px;
+                margin-bottom: 15px;
+            }
+            .payment-container button {
+                width: 100%;
+                padding: 10px;
+                background-color: #007BFF;
+                color: #FFFFFF;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            .payment-container button:hover {
+                background-color: #0056b3;
+            }
+            .payment-container .terms {
+                text-align: center;
+                font-size: 12px;
+                color: #555555;
+                margin-top: 10px;
+            }
+            .payment-container .terms a {
+                color: #007BFF;
+                text-decoration: none;
+            }
+            .payment-container .terms a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+
+    <body>
+        <form th:action="@{/konfirmasi-pembayaran}" class="payment-container" method="post">
+            <h2>PAYMENT DETAILS</h2>
+        
+            <label for="card-number">CARD NUMBER</label>
+            <input type="text" id="nomorKartu" name="nomorKartu" placeholder="1234 4567 5869 1234" required>
+        
+            <div class="row">
+                <div>
+                    <label for="tanggalKedaluwarsa">EXPIRY DATE</label>
+                    <input type="text" id="expiry-date" name="tanggalKedaluwarsa" placeholder="MM/YY" required>
+                </div>
+                <div>
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" name="cvv" placeholder="123" required>
+                </div>
+            </div>
+        
+            <label for="total-amount">TOTAL AMOUNT</label>
+            <div class="total-amount" id="totalAmount">
+                <span class="hargaBarang" th:text="${totalAmount}"></span>
+            </div>
+        
+            <button type="submit">PAY NOW</button>
+        
+            <div class="terms">
+                By placing your order, you agree to our <a href="#">privacy notice</a> & <a href="#">terms of use</a>.
+            </div>
+        </form>
+        
+        <script>
+            document.querySelectorAll('.hargaBarang').forEach(function (el) {
+               const number = parseFloat(el.innerText); // Ambil nilai harga (gunakan parseFloat untuk mendukung desimal)
+               el.innerText = new Intl.NumberFormat('id-ID', {
+                  style: 'currency',
+                  currency: 'IDR'
+               }).format(number).replace('IDR', '').trim();
+            });
+         </script>
+        
+    </body>
+</html>

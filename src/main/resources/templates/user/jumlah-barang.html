@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+
+
+    <style>
+        head,
+        body {
+            background-color: #FFCCBC;
+        } 
+        
+        .container{
+            margin-top:40px;
+            margin-bottom:40px;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        .card-title {
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+
+        .register {
+            font-size: 10px;
+            position: relative;
+            bottom: 5px;
+        }
+        input {
+            border: none;
+            padding-left: 4px;
+            background-color: #f7f1f1;
+            font-size: 15px;
+        }
+
+        .card-body {
+            background-color: #f7f1f1;
+        }
+
+        .numbr {
+            border-bottom: 1px solid #c1bcbc;
+            padding-bottom: 8px;
+        }
+
+        input.focus,
+        input:focus {
+            outline: 0;
+            box-shadow: none !important;
+        }
+
+        .numbr.numbr.hover,
+        .numbr:hover {
+            border-bottom: 1px solid aqua;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class='container'>
+        <div class="card mx-auto col-md-5 col-8 mt-3 p-0">
+            <img class='mx-auto pic' 
+                th:src="${barang.image}"/>
+            <div class="card-title d-flex px-4">
+                <p class="item text-muted" th:text="${barang.name}"></p>
+                <p class="hargaBarang" th:text="${barang.harga}"></p>
+            </div>
+            <form action="#" th:action="@{/save-keranjang/{id}(id=${barang.id})}" method="post" th:object="${barang}">
+                <div class="card-body">
+                    <div class="numbr mb-3">
+                        <input 
+                            type="number"
+                            class="col-10 p-0" 
+                            placeholder="Amount"
+                            name="jumlah"
+                            min="1"
+                            max="1000"
+                            required
+                        />
+                    </div>
+                    <button class="btn btn-primary" type="submit">Add Cart</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.hargaBarang').forEach(function (el) {
+           const number = parseFloat(el.innerText); // Ambil nilai harga (gunakan parseFloat untuk mendukung desimal)
+           el.innerText = new Intl.NumberFormat('id-ID', {
+              style: 'currency',
+              currency: 'IDR'
+           }).format(number).replace('IDR', '').trim();
+        });
+     </script>
+
+
+</body>
+</html>

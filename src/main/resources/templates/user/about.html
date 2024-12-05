@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>About</title>
+
+        <!-- font awesome cdn link  -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+     
+        <!-- custom css file link  -->
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+      <header class="header">
+         <section class="flex">
+            <a href="/" class="logo">Kenny Store<span>.</span></a>
+   
+            <nav class="navbar">
+               <a href="/">home</a>
+               <a href="/about">about</a>
+               <a href="/user-orders">orders</a>
+               <a href="/product">Product</a>
+            </nav>
+   
+            <div class="icons">
+               <div id="menu-btn" class="fas fa-bars"></div>
+               <a href="/search-page"><i class="fas fa-search"></i></a>
+               <a href="/top-up"><i class="fas fa-wallet"></i></a>
+               <a href="/keranjang"><i class="fas fa-shopping-cart"></i><span></span></a>
+               <div id="user-btn" class="fas fa-user"></div>
+            </div>
+   
+            <div class="profile">
+   
+               <a href="/profile" class="btn">Profile</a>
+               <a href="/user-orders" class="btn">My Orders</a>
+               <a th:href="@{/keluar-user}" class="delete-btn">logout</a>
+   
+            </div>
+   
+         </section>
+   
+      </header>
+        
+        <section class="about">
+
+            <div class="row">
+         
+               <div class="image">
+                  <img src="images/about-img.svg" alt="">
+               </div>
+         
+               <div class="content">
+                  <h3>why choose us?</h3>
+                  <p>Selamat datang di KenyStore, destinasi terbaik Anda untuk elektronik terbaru dan terbaik. Di KenyStore,
+                     kami berkomitmen untuk menghadirkan teknologi terkini kepada pelanggan kami, dengan menawarkan berbagai
+                     produk yang memenuhi setiap kebutuhan dan gaya hidup. Baik Anda mencari smartphone terbaru, laptop
+                     berkualitas tinggi, perangkat rumah pintar, atau aksesori, kami memiliki semuanya untuk Anda.</p>                  <a href="contact.php" class="btn">contact us</a>
+               </div>
+         
+            </div>
+         
+         </section>
+
+         <footer class="footer">
+
+            <section class="grid">
+      
+               <div class="box">
+                  <h3>quick links</h3>
+                  <a href="/"> <i class="fas fa-angle-right"></i> home</a>
+                  <a href=""> <i class="fas fa-angle-right"></i> about</a>
+                  <a href=""> <i class="fas fa-angle-right"></i> shop</a>
+                  <a href=""> <i class="fas fa-angle-right"></i> contact</a>
+               </div>
+      
+               <div class="box">
+                  <h3>contact us</h3>
+                  <a href="tel:1234567890"><i class="fas fa-phone"></i> +62 456 7899</a>
+                  <a href="tel:11122233333"><i class="fas fa-phone"></i> +62 222 3333</a>
+                  <a href="mailto:shaikh@gmail.com"><i class="fas fa-envelope"></i> AryaSegara@gmail.com</a>
+                  <a href="https://www.google.com/myplace"><i class="fas fa-map-marker-alt"></i> Bandung, indonesia - 10182002
+                  </a>
+               </div>
+      
+               <div class="box">
+                  <h3>follow us</h3>
+                  <a href="#"><i class="fab fa-facebook-f"></i>facebook</a>
+                  <a href="#"><i class="fab fa-twitter"></i>twitter</a>
+                  <a href="#"><i class="fab fa-instagram"></i>instagram</a>
+                  <a href="#"><i class="fab fa-linkedin"></i>linkedin</a>
+               </div>
+      
+            </section>
+      
+            <div class="credit">&copy; copyright 2024 @
+               by <span>Arya Segara</span> | all rights reserved!
+            </div>
+      
+         </footer>
+      
+
+         <script src="js/script.js"></script>
+
+    </body>
+</html>

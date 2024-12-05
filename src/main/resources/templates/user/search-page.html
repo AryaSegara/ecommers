@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Search Page</title>
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="header">
+        <section class="flex">
+           <a href="/" class="logo">Kenny Store<span>.</span></a>
+  
+           <nav class="navbar">
+              <a href="/">home</a>
+              <a href="/about">about</a>
+              <a href="/user-orders">orders</a>
+              <a href="/product">Product</a>
+           </nav>
+  
+           <div class="icons">
+              <div id="menu-btn" class="fas fa-bars"></div>
+              <a href="/search-page"><i class="fas fa-search"></i></a>
+              <a href="/top-up"><i class="fas fa-wallet"></i></a>
+              <a href="/keranjang"><i class="fas fa-shopping-cart"></i><span></span></a>
+              <div id="user-btn" class="fas fa-user"></div>
+           </div>
+  
+           <div class="profile">
+  
+              <a href="/profile" class="btn">Profile</a>
+              <a href="/user-orders" class="btn">My Orders</a>
+              <a th:href="@{/keluar-user}" class="delete-btn">logout</a>
+  
+           </div>
+  
+        </section>
+  
+     </header>
+  
+
+
+    <section class="search-form">
+        <form th:action="@{/search-barang}" method="get">
+            <input type="text" name="name" placeholder="search here..." maxlength="100" class="box" required>
+            <button type="submit" class="fas fa-search"></button>
+        </form>
+    </section>
+
+
+    <section class="products" style="padding-top: 0; min-height:100vh;">
+        <div class="box-container">
+            <form action="" th:each="b : ${barang}" method="post" class="box">
+                <!-- image product -->
+                <img th:src="${b.image}" alt="">
+                <div class="name" th:text="${b.name}"></div>
+                <div class="flex">
+                    <div class="price hargaBarang" th:text="${b.harga}"><span></span><span>/-</span></div>
+                </div>
+                <!-- <input type="submit" value="add to cart" class="btn" name="add_to_cart"> -->
+                <a th:href="@{/jumlah-barang/{id}(id=${b.id})}" value="add to cart"
+                class="btn" name="add_to_cart">Add To Cart</a>
+            </form>
+
+        </div>
+
+    </section>
+
+    <footer class="footer">
+
+        <section class="grid">
+  
+           <div class="box">
+              <h3>quick links</h3>
+              <a href="/"> <i class="fas fa-angle-right"></i> Home</a>
+              <a href="/about"> <i class="fas fa-angle-right"></i> Abbout</a>
+              <a href="/product"> <i class="fas fa-angle-right"></i> Product</a>
+              <a href="/user-orders"> <i class="fas fa-angle-right"></i> Orders</a>
+           </div>
+  
+           <div class="box">
+              <h3>contact us</h3>
+              <a href="tel:1234567890"><i class="fas fa-phone"></i> +62 2137395645</a>
+              <a href="tel:11122233333"><i class="fas fa-phone"></i> +62 1323456789</a>
+              <a href="mailto:shaikh@gmail.com"><i class="fas fa-envelope"></i> AryaSegara@gmail.com</a>
+              <a href="https://www.google.com/myplace"><i class="fas fa-map-marker-alt"></i> Bandung, indonesia - 10182002
+              </a>
+           </div>
+  
+           <div class="box">
+              <h3>follow us</h3>
+              <a href="#"><i class="fab fa-facebook-f"></i>facebook</a>
+              <a href="#"><i class="fab fa-twitter"></i>twitter</a>
+              <a href="#"><i class="fab fa-instagram"></i>instagram</a>
+              <a href="#"><i class="fab fa-linkedin"></i>linkedin</a>
+           </div>
+  
+        </section>
+  
+        <div class="credit">&copy; copyright 2024 @
+           by <span>Arya Segara</span> | all rights reserved!
+        </div>
+  
+     </footer>
+
+    <script src="js/script.js"></script>
+
+
+    <script>
+        document.querySelectorAll('.hargaBarang').forEach(function (el) {
+            const number = parseFloat(el.innerText); // Ambil nilai harga (gunakan parseFloat untuk mendukung desimal)
+            el.innerText = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+            }).format(number).replace('IDR', '').trim();
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+   <title>Detail Product</title>
+
+   <link rel="stylesheet" href="/css/style.css">
+
+   <!-- font awesome cdn link  -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+   <!-- custom css file link  -->
+   <link rel="stylesheet" href="css/style.css">
+   <style>
+      .product-page {
+         display: flex;
+         flex-wrap: wrap;
+         max-width: 1200px;
+         height: 350px;
+         margin: 48px auto;
+         gap: 40px;
+         background-color: #fff;
+         padding: 20px;
+         border-radius: 10px;
+         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-image {
+         flex: 1;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+      }
+
+      .product-image img {
+         flex: 1;
+         max-width: 100%;
+         max-height: 350px;
+         object-fit: contain;
+         border-radius: 10px;
+      }
+
+      .product-details {
+         flex: 2;
+         min-width: 300px;
+      }
+
+      .product-details h1 {
+         font-size: 28px;
+         margin-bottom: 10px;
+      }
+
+      .product-details .designer {
+         font-style: italic;
+         color: #777;
+         margin-bottom: 20px;
+      }
+
+      .product-details .description {
+         font-size: 16px;
+         color: #555;
+         margin-bottom: 20px;
+      }
+
+      .product-details .price {
+         font-size: 24px;
+         font-weight: bold;
+         color: #333;
+         margin-bottom: 20px;
+      }
+
+      .actions {
+         display: flex;
+         gap: 10px;
+      }
+
+      .actions button {
+         padding: 10px 20px;
+         border: none;
+         cursor: pointer;
+         border-radius: 5px;
+         font-size: 16px;
+      }
+
+      .wishlist-btn {
+         background-color: #ddd;
+         color: #333;
+      }
+
+      .cart-btn {
+         background-color: #aeaeae;
+         color: #fff;
+      }
+
+      .cart-btn:hover {
+         background-color: #5293fc;
+      }
+   </style>
+</head>
+
+<body>
+
+   <header class="header">
+      <section class="flex">
+         <a href="/" class="logo">Kenny Store<span>.</span></a>
+
+         <nav class="navbar">
+            <a href="/">home</a>
+            <a href="/about">about</a>
+            <a href="/user-orders">orders</a>
+            <a href="/product">Product</a>
+         </nav>
+
+         <div class="icons">
+            <div id="menu-btn" class="fas fa-bars"></div>
+            <a href="/search-page"><i class="fas fa-search"></i></a>
+            <a href="/top-up"><i class="fas fa-wallet"></i></a>
+            <a href="/keranjang"><i class="fas fa-shopping-cart"></i><span></span></a>
+            <div id="user-btn" class="fas fa-user"></div>
+         </div>
+
+         <div class="profile">
+
+            <p>please login or register first!</p>
+            <div class="flex-btn">
+               <a th:href="@{/register}" class="option-btn">register</a>
+            </div>
+            <a th:href="@{/login-user}" class="option-btn">login User</a>
+            <a th:href="@{/login-admin}" class="btn">Login Admin</a>
+
+         </div>
+
+      </section>
+
+   </header>
+
+   <main>
+      <div th:each="b : ${barang}" class="product-page">
+         <div class="product-image">
+            <img th:src="${b.image}" alt="152 Series Watch">
+         </div>
+         <div class="product-details">
+            <h1 th:text="${b.name}"></h1>
+            <p class="designer">Designed by Arya Segara, KenyStore | Indonesia Bandung</p>
+            <p class="description" th:text="${b.description}">
+            </p>
+            <p class="price hargaBarang" th:text="${b.harga}"></p>
+            <div class="actions">
+               <!-- <button class="wishlist-btn">Add to Wishlist</button> -->
+               <button class="cart-btn">
+                  <a href="/login-user">Add To Cart</a>
+               </button>
+            </div>
+         </div>
+      </div>
+   </main>
+
+   <footer class="footer">
+
+      <section class="grid">
+
+         <div class="box">
+            <h3>quick links</h3>
+            <a href="/"> <i class="fas fa-angle-right"></i> Home</a>
+            <a href="/about"> <i class="fas fa-angle-right"></i> Abbout</a>
+            <a href="/product"> <i class="fas fa-angle-right"></i> Product</a>
+            <a href="/user-orders"> <i class="fas fa-angle-right"></i> Orders</a>
+         </div>
+
+         <div class="box">
+            <h3>contact us</h3>
+            <a href="tel:1234567890"><i class="fas fa-phone"></i> +62 2137395645</a>
+            <a href="tel:11122233333"><i class="fas fa-phone"></i> +62 1323456789</a>
+            <a href="mailto:shaikh@gmail.com"><i class="fas fa-envelope"></i> AryaSegara@gmail.com</a>
+            <a href="https://www.google.com/myplace"><i class="fas fa-map-marker-alt"></i> Bandung, indonesia - 10182002
+            </a>
+         </div>
+
+         <div class="box">
+            <h3>follow us</h3>
+            <a href="#"><i class="fab fa-facebook-f"></i>facebook</a>
+            <a href="#"><i class="fab fa-twitter"></i>twitter</a>
+            <a href="#"><i class="fab fa-instagram"></i>instagram</a>
+            <a href="#"><i class="fab fa-linkedin"></i>linkedin</a>
+         </div>
+
+      </section>
+
+      <div class="credit">&copy; copyright 2024 @
+         by <span>Arya Segara</span> | all rights reserved!
+      </div>
+
+   </footer>
+
+   <script>
+      document.querySelectorAll('.hargaBarang').forEach(function (el) {
+         const number = parseFloat(el.innerText); // Ambil nilai harga (gunakan parseFloat untuk mendukung desimal)
+         el.innerText = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR'
+         }).format(number).replace('IDR', '').trim();
+      });
+   </script>
+
+</body>
+
+</html>

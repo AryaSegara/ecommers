@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="css/style.css">
+
+       <!-- font awesome cdn link  -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+   <!-- custom css file link  -->
+   <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+
+    <!-- <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .cart-container {
+            width: 80%;
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+        }
+
+        .item-image {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .item-price {
+            font-size: 16px;
+            color: #888;
+        }
+
+        .item-total {
+            font-size: 16px;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        .item-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin: 5px 0;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        button[type="submit"]:active {
+            background-color: #3e8e41;
+        }
+
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            margin-top: 5px;
+            font-size: 16px;
+        }
+
+        .cart-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .cart-footer button {
+            background-color: #ff9800;
+        }
+
+        .cart-footer button:hover {
+            background-color: #e68900;
+        }
+    </style> -->
+
+</head>
+
+<body>
+    <header class="header">
+        <section class="flex">
+           <a href="/" class="logo">Kenny Store<span>.</span></a>
+  
+           <nav class="navbar">
+              <a href="/">home</a>
+              <a href="/about">about</a>
+              <a href="/user-orders">orders</a>
+              <a href="/product">Product</a>
+           </nav>
+  
+           <div class="icons">
+              <div id="menu-btn" class="fas fa-bars"></div>
+              <a href="/search-page"><i class="fas fa-search"></i></a>
+              <a href="/top-up"><i class="fas fa-wallet"></i></a>
+              <a href="/keranjang"><i class="fas fa-shopping-cart"></i><span></span></a>
+              <div id="user-btn" class="fas fa-user"></div>
+           </div>
+  
+           <div class="profile">
+  
+              <a href="/profile" class="btn">Profile</a>
+              <a href="/user-orders" class="btn">My Orders</a>
+              <a th:href="@{/keluar-user}" class="delete-btn">logout</a>
+  
+           </div>
+  
+        </section>
+  
+     </header>
+  
+
+    <div class="container mt-5 p-5">
+        <div class="card card-sh">
+            <div class="card-header text-center">
+                <p class="fs-4">Cart Page</p>
+
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col" class="text-center">Quantity</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="k,c:${keranjang}">
+                            <th scope="row" th:text="${c.count}"></th>
+                            <td><img th:src="${k.barang.image}" width="100px" height="100px"></td>
+                            <td th:text="${k.barang.name}"></td>
+                            <td class="hargaBarang" th:text="${k.barang.harga}"></td>
+                            <td class="text-center" th:text="${k.jumlah}">
+                            </td>
+                            <td class="hargaBarang" th:text="${k.totalHarga}"></td>
+                            <td>
+                                <a class="btn btn-primary" th:href="@{/update-keranjang/{id}(id=${k.id})}">Update Jumlah
+                                    Barang</a>
+                                <a class="btn btn-danger" th:href="@{/delete-keranjang/{id}(id=${k.id})}">Delete
+                                    Barang</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"></td>
+                            <td class="fw-bold">Total Harga :</td>
+                            <td class="fw-bold hargaBarang" th:text="${totalJumlah}"></td>
+                            <td>
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <a href="/order" class="btn btn-warning">Payment</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.hargaBarang').forEach(function (el) {
+           const number = parseFloat(el.innerText); // Ambil nilai harga (gunakan parseFloat untuk mendukung desimal)
+           el.innerText = new Intl.NumberFormat('id-ID', {
+              style: 'currency',
+              currency: 'IDR'
+           }).format(number).replace('IDR', '').trim();
+        });
+     </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>
+<!-- <div class="cart-container">
+    <h2>Keranjang Belanja</h2>
+    <form action="" method="POST" th:each="k : ${keranjang}">
+        <div class="cart-item">
+            <img th:src="${k.barang.image}" alt="Barang 1" class="item-image">
+            <div class="item-details">
+
+                <p style="font-size: x-large;">
+                    Nama Barang : <p class="item-name" th:text="${k.barang.name}"></p>
+                </p>
+
+                <p>
+                    Harga Barang :<p class="item-price" style="font-size: medium;" th:text=" 'Rp.' + ${k.barang.harga}"></p>
+                </p>
+                <p>
+                    Jumlah Barang :<label th:text="${k.jumlah}" style="font-size: x-large;"></label>
+                </p>
+
+<p>
+    Total Harga :
+<p class="item-total" th:text=" 'Rp.' + ${k.totalHarga}" style="font-size: medium;"></p>
+</p>
+
+<p>
+    Pembeli :
+<p style="font-size: smaller; color: #888; margin-top: 10px;" th:text="${k.users.name}"></p>
+</p>
+
+</div>
+<div class="item-actions">
+    <button type="submit" name="update" value="update1">
+        <a th:href="@{/update-keranjang/{id}(id=${k.id})}">Update</a>
+    </button>
+    <button type="submit" name="delete" value="delete1">
+        <a th:href="@{/delete-keranjang/{id}(id=${k.id})}">Delete</a>
+    </button>
+</div>
+</div>
+
+<div class="cart-footer">
+    <button type="submit" name="checkout">
+        <a href="">Payment</a>
+    </button>
+</div>
+</form>
+</div> -->
