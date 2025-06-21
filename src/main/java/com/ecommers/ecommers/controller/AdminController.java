@@ -44,7 +44,7 @@ public class AdminController {
     @PostMapping("/dashboard")
     public String cekAdmin(@RequestParam (name = "pin") String pin){
 
-        // cek apakah kerengan admin belum login
+        // cek apakah keterengan admin belum login
         if(adminService.getAllAdmin().get(0).getKeterangan().equals("belum login")){
             Admin admin = adminService.getAdminByPin(pin);
 
